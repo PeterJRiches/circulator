@@ -27,7 +27,7 @@ def update_circulator_info():
 
 # creates the csv file
 def main():
-    circulator_file = open('circulator.csv', 'w')
+    circulator_file = open('//CHFS/Shared Documents/OpenData/datasets/staging/department/circulator.csv', 'w')
     csvwriter = csv.writer(circulator_file)
     csvwriter.writerow(['id','BibIds','Call Number'])
     circulator_info = update_circulator_info()
