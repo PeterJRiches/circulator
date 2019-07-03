@@ -15,7 +15,7 @@ def get_token():
 
 # function that gets all of the items in the circulator
 def update_circulator_info():
-    
+
     token = get_token()
     request = requests.get("https://catalog.chapelhillpubliclibrary.org/iii/sierra-api/v5/items?status=y&fields=id,bibIds,callNumber", headers={
             "Authorization": "Bearer " + token
@@ -42,6 +42,6 @@ def main():
         except: 
             row.append(" ")
         csvwriter.writerow(row)
-        
-# call the main function    
+
+# call the main function
 main()
