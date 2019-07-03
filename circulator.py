@@ -15,14 +15,16 @@ def get_token():
 
 # function that gets all of the items in the circulator
 def update_circulator_info():
-    
+
     token = get_token()
-    request = requests.get("https://catalog.chapelhillpubliclibrary.org/iii/sierra-api/v3/items?status=y&fields=id,bibIds,callNumber", headers={
+    request = requests.get("https://catalog.chapelhillpubliclibrary.org/iii/sierra-api/v5/items?status=y&fields=id,bibIds,callNumber", headers={
             "Authorization": "Bearer " + token
         })
-    
-    json_response = json.loads(request.text)['entries']
-
+    try:
+        json_response = json.loads(request.text)['entries']
+    except KeyError:
+        json_response = []
+        print(f'No Items Found {request.status_code}')
     return json_response
 
 # creates the csv file
@@ -35,8 +37,11 @@ def main():
         row = []
         row.append(entry["id"])
         row.append(entry["bibIds"][0])
-        row.append(entry["callNumber"])
+        try:
+            row.append(entry["callNumber"])
+        except: 
+            row.append(" ")
         csvwriter.writerow(row)
 
-# call the main function    
+# call the main function
 main()
